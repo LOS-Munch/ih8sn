@@ -8,10 +8,6 @@ if [ -d system ]; then
     rm -rf system
 fi
 
-if [[ -n $(echo *.zip) ]]; then 
-    rm *.zip
-fi
-
 CXX=${CXX:-aarch64-linux-android31-clang++}
 
 ${CXX} \
