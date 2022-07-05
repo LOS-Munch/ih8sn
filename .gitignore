@@ -1,4 +1,4 @@
 android-ndk-*
-ih8sn
+system/bin/ih8sn
 ih8sn-*
-ih8sn.conf.*
+system/etc/ih8sn.conf.*
