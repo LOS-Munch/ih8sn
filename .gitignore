@@ -1,4 +1,6 @@
 android-ndk-*
 ih8sn
+*.zip
 ih8sn-*
 ih8sn.conf.*
+system/
