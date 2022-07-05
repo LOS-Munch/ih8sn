@@ -139,9 +139,6 @@ int main(int argc, char *argv[]) {
                 property_override("ro.boot.vbmeta.device_state", "locked");
                 property_override("ro.boot.verifiedbootstate", "green");
                 property_override("ro.boot.veritymode", "enforcing");
-                property_override("vendor.boot.vbmeta.device_state", "locked");
-                property_override("vendor.boot.verifiedbootstate", "green");
-                property_override("vendor.boot.veritymode", "enforcing");
         }
     }
 
