@@ -3,19 +3,6 @@
 OUTFD="/proc/self/fd/$2"
 ZIP=$3
 
-set_con() {
-  chcon -h u:object_r:"$1":s0 $2
-  chcon u:object_r:"$1":s0 $2
-}
-
-set_perm() {
-  chmod $1 $2
-}
-
-set_owner() {
-  chown $1:$2 $3
-}
-
 ui_print() {
   echo "ui_print $1" > "$OUTFD";
   echo "ui_print" > "$OUTFD";
@@ -157,22 +144,6 @@ if [ "$SYSTEM_STORAGE" -lt "$NEEDED_STORAGE_SYSTEM" ]; then
     error_no_space
   fi
 fi
-
-ui_print "Preparing files for copying"
-for d in `find . -mindepth 1 -type d -type d`; do
-  set_perm 0755 $d
-  set_owner root root $d
-done
-for f in `find . -type f`; do
-  type=$(echo "$f" | sed 's/.*\.//')
-  if [ "$type" == "sh" ] || [ "$type" == "$f" ]; then
-    set_perm 0755 $f
-  else
-    set_perm 0644 $f
-  fi
-  set_owner root root $f
-  set_con system_file $f
-done
 
 ui_print "Copying files"
 cp --preserve=a -r ./* "${SYSTEM_OUT}/"
