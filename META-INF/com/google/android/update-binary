@@ -7,18 +7,13 @@ ui_print() {
   echo "ui_print";
 }
 
-cleanup() {
-  ui_print "Cleaning up files"
-  rm -rf $TMP/system
-  rm -rf $TMP/bin
-
+unmount_partition() {
   ui_print "Unmounting partitions"
   umount -l "$SYSTEM_MNT"
 }
 
 error() {
   ui_print "$1"
-  cleanup
   exit 1
 }
 
@@ -62,7 +57,7 @@ find_block() {
 }
 
 compute_ih8sn_size() {
-  NEEDED_STORAGE_SYSTEM=$(expr $(du -cs `find -maxdepth 1 -mindepth 1 -name system` | tail -n1 | cut -f1) + $STORAGE_BUFFER)
+  NEEDED_STORAGE_SYSTEM=$(expr 10240 + $STORAGE_BUFFER)
 
   RECLAIMABLE_STORAGE_SYSTEM=$(find . -path "./system/*" -type f | sed "s|^./|$SYSTEM_OUT/|" | xargs ls -d 2>/dev/null | xargs du -cs PLACEHOLDER 2>/dev/null | tail -n1 |  cut -f1)
   NEEDED_STORAGE_SYSTEM=$(expr $NEEDED_STORAGE_SYSTEM - $RECLAIMABLE_STORAGE_SYSTEM)
@@ -71,12 +66,6 @@ compute_ih8sn_size() {
 ui_print "**********************"
 ui_print "ih8sn installer"
 ui_print "**********************"
-
-ui_print "Extracting files"
-TMP=/tmp
-cd "$TMP"
-unzip -o "$ZIP"
-rm -rf META-INF
 
 ui_print "Mounting system partition"
 
@@ -121,20 +110,15 @@ SYSTEM_OUT="${SYSTEM_MNT}/system"
 SYSTEM_STORAGE=`df $SYSTEM_MNT | tail -1 | tr -s ' ' | cut -d ' ' -f4`
 STORAGE_BUFFER=10240
 
-cd system
 compute_ih8sn_size
-
 if [ "$SYSTEM_STORAGE" -lt "$NEEDED_STORAGE_SYSTEM" ]; then
-  compute_ih8sn_size
-  if [ "$SYSTEM_STORAGE" -lt "$NEEDED_STORAGE_SYSTEM" ]; then
-    error_no_space
-  fi
+  error_no_space
 fi
 
-ui_print "Copying files"
-cp --preserve=a -r ./system "${SYSTEM_OUT}/"
+ui_print "Extracting files"
+unzip -qq "$ZIP" 'system/*' -d "${SYSTEM_OUT}/"
 
-cleanup
+unmount_partition
 
 ui_print "Done!"
 exit 0
