@@ -1,18 +1,16 @@
 #!/sbin/sh
 
-OUTFD="/proc/self/fd/$2"
 ZIP=$3
 
 ui_print() {
-  echo "ui_print $1" > "$OUTFD";
-  echo "ui_print" > "$OUTFD";
+  echo "ui_print $1";
+  echo "ui_print";
 }
 
 cleanup() {
   ui_print "Cleaning up files"
   rm -rf $TMP/system
   rm -rf $TMP/bin
-  rm $TMP/toybox
 
   ui_print "Unmounting partitions"
   umount -l "$SYSTEM_MNT"
@@ -64,9 +62,9 @@ find_block() {
 }
 
 compute_ih8sn_size() {
-  NEEDED_STORAGE_SYSTEM=$(expr $(du -cs `find -maxdepth 1 -mindepth 1 ! -name product ! -name system_ext` | tail -n1 | cut -f1) + $STORAGE_BUFFER)
+  NEEDED_STORAGE_SYSTEM=$(expr $(du -cs `find -maxdepth 1 -mindepth 1 -name system` | tail -n1 | cut -f1) + $STORAGE_BUFFER)
 
-  RECLAIMABLE_STORAGE_SYSTEM=$(find . ! -path "./product/*" ! -path "./system_ext/*" -type f | sed "s|^./|$SYSTEM_OUT/|" | xargs ls -d 2>/dev/null | xargs du -cs PLACEHOLDER 2>/dev/null | tail -n1 |  cut -f1)
+  RECLAIMABLE_STORAGE_SYSTEM=$(find . -path "./system/*" -type f | sed "s|^./|$SYSTEM_OUT/|" | xargs ls -d 2>/dev/null | xargs du -cs PLACEHOLDER 2>/dev/null | tail -n1 |  cut -f1)
   NEEDED_STORAGE_SYSTEM=$(expr $NEEDED_STORAGE_SYSTEM - $RECLAIMABLE_STORAGE_SYSTEM)
 }
 
@@ -79,18 +77,6 @@ TMP=/tmp
 cd "$TMP"
 unzip -o "$ZIP"
 rm -rf META-INF
-
-ui_print "Setting up environment"
-TOYBOX="${TMP}/toybox"
-chmod +x "$TOYBOX"
-
-TOYS_PATH="${TMP}/bin"
-rm -rf "$TOYS_PATH";
-$TOYBOX install -d "$TOYS_PATH"
-for toy in $($TOYBOX); do
-  $TOYBOX ln -sf "$TOYBOX" "${TOYS_PATH}/${toy}"
-done
-PATH="${TOYS_PATH}:${PATH}"
 
 ui_print "Mounting system partition"
 
@@ -146,7 +132,7 @@ if [ "$SYSTEM_STORAGE" -lt "$NEEDED_STORAGE_SYSTEM" ]; then
 fi
 
 ui_print "Copying files"
-cp --preserve=a -r ./* "${SYSTEM_OUT}/"
+cp --preserve=a -r ./system "${SYSTEM_OUT}/"
 
 cleanup
 
