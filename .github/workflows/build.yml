@@ -45,10 +45,10 @@ jobs:
         name: ih8sn (x86_64)
         path: ih8sn-x86_64.zip
     - uses: marvinpinto/action-automatic-releases@latest
-      if: github.ref == 'refs/heads/master'
+      if: github.ref == 'refs/heads/alioth'
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
-        automatic_release_tag: "latest"
+        automatic_release_tag: "latest-alioth"
         prerelease: false
         title: "${{ env.GITHUB_SHA }}"
         files: |
