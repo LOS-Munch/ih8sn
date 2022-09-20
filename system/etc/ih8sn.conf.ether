@@ -1,0 +1,7 @@
+BUILD_DESCRIPTION=ether-user 7.1.1 Robin_Nougat_108 00WW_Jenkins_108 release-keys
+BUILD_FINGERPRINT=Nextbit/ether/ether:7.1.1/Robin_Nougat_108/00WW_Jenkins_108:user/release-keys
+BUILD_SECURITY_PATCH_DATE=2017-04-01
+BUILD_TAGS=release-keys
+BUILD_TYPE=user
+DEBUGGABLE=0
+SECURE=1

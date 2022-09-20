@@ -1,0 +1,7 @@
+BUILD_DESCRIPTION=troika-user 11 RSB31.Q1-48-36-11 7365d8c release-keys
+BUILD_FINGERPRINT=motorola/troika_retail/troika_sprout:11/RSB31.Q1-48-36-11/7365d8c:user/release-keys
+BUILD_SECURITY_PATCH_DATE=2019-07-01
+BUILD_TAGS=release-keys
+BUILD_TYPE=user
+DEBUGGABLE=0
+SECURE=1

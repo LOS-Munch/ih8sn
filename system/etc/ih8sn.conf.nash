@@ -1,0 +1,9 @@
+BUILD_DESCRIPTION=nash_tmo_c-user 8.0.0 OCXS27.109-51-14-7 12 release-keys
+BUILD_FINGERPRINT=motorola/nash_tmo_c/nash:8.0.0/OCXS27.109-51-14-7/12:user/release-keys
+BUILD_SECURITY_PATCH_DATE=2019-07-01
+BUILD_TAGS=release-keys
+BUILD_TYPE=user
+MANUFACTURER_NAME=motorola
+PRODUCT_NAME=nash_retail
+DEBUGGABLE=0
+SECURE=1
