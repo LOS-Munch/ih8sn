@@ -25,7 +25,7 @@ fi
 if [[ `adb shell ls /system/bin/ih8sn 2> /dev/null` ]]; then
     echo "Removing existing ih8sn files"
     adb wait-for-device shell "find /system -name *ih8sn* -delete"
-    exit 0
+    read -p "Press any key to exit..." && exit
 fi
 
 adb wait-for-device push system/addon.d/60-ih8sn.sh /system/addon.d/
@@ -49,3 +49,5 @@ fi
 if [[ "${REBOOT}" = "1" ]]; then
     adb wait-for-device reboot
 fi
+
+read -p "Press any key to exit..." && exit

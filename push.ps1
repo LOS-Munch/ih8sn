@@ -18,6 +18,7 @@ if ($use_remount) {
 if ((adb shell 'ls /system/bin/ih8sn 2> /dev/null') -eq "/system/bin/ih8sn") {
     echo "Removing existing ih8sn files"
     adb wait-for-device shell "find /system -name *ih8sn* -delete"
+    read-host “Press any key to exit...”
     exit
 }
 
@@ -42,3 +43,5 @@ if (Test-Path "system/etc/ih8sn.conf.${serialno}" -PathType leaf) {
 if ($reboot) {
     adb wait-for-device reboot
 }
+
+read-host “Press any key to exit...”
