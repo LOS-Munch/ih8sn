@@ -7,6 +7,18 @@ if [ ! -d $OUT ]; then
     mkdir $OUT
 fi
 
+NDK_VERSION=r25b
+
+if [ ! -d android-ndk-$NDK_VERSION ]; then
+    if [ ! -f android-ndk-$NDK_VERSION-linux.zip ]; then
+        echo "Downloading Android NDK"
+        wget -q --show-progress https://dl.google.com/android/repository/android-ndk-$NDK_VERSION-linux.zip
+    fi
+    unzip -q android-ndk-$NDK_VERSION-linux.zip
+fi
+
+ANDROID_NDK_HOME=./android-ndk-$NDK_VERSION
+
 export PATH=${PATH}:${ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/linux-x86_64/bin
 
 CXX=${CXX:-aarch64-linux-android33-clang++}
