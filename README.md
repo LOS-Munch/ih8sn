@@ -10,6 +10,8 @@ ih8sn allows you to modify system properties at runtime. It can be installed wit
 - The developers cannot be held liable in any way for the use of this tool.
 ```
 
+## If you want to add your device, do a PR with your device config.
+
 ## Requirements
 
 - Android platform tools
