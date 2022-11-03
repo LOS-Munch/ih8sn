@@ -87,7 +87,6 @@ int main(int argc, char *argv[]) {
     const auto debuggable = config.find("DEBUGGABLE");
     const auto manufacturer_name = config.find("MANUFACTURER_NAME");
     const auto product_name = config.find("PRODUCT_NAME");
-    const auto secure = config.find("SECURE");
 
     if (is_init_stage && build_fingerprint != config.end()) {
         property_override(property_list("ro.", "build.fingerprint"),
@@ -125,8 +124,8 @@ int main(int argc, char *argv[]) {
         property_override("ro.debuggable", debuggable->second.c_str());
     }
 
-    if (is_init_stage && secure != config.end()) {
-        property_override("ro.secure", secure->second.c_str());
+    if (is_init_stage) {
+        property_override("ro.secure", "1");
     }
 
     if (is_init_stage && manufacturer_name != config.end()) {
