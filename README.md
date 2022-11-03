@@ -26,7 +26,7 @@ Check the "Releases" section on the right.
 ### 2: [Optional] Configure ih8sn.conf inside the zip for your device
 
 - Modify ih8sn.conf for your device and save it as ih8sn.conf.`<codename>` in etc.
-- Use # or remove it from config to disable spoofing that property.
+- Use # or remove it from config to disable spoofing that property. (You don't need to spoof all the properties)
 
 Example :
 
@@ -41,7 +41,6 @@ BUILD_VERSION_RELEASE_OR_CODENAME=10
 DEBUGGABLE=0
 MANUFACTURER_NAME=OnePlus
 PRODUCT_NAME=OnePlus7Pro
-SECURE=1
 ```
 
 ### 3: Push the files to your device
