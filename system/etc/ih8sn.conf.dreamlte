@@ -1,0 +1,5 @@
+BUILD_FINGERPRINT=samsung/dreamltexx/dreamlte:8.0.0/R16NW/G950FXXU1CRC7:user/release-keys
+BUILD_SECURITY_PATCH_DATE=2018-03-01
+BUILD_TAGS=release-keys
+BUILD_TYPE=user
+DEBUGGABLE=0
