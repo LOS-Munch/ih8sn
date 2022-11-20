@@ -1,6 +1,4 @@
-BUILD_DESCRIPTION=marlin-user 10 QP1A.191005.007.A3 5972272 release-keys
-BUILD_FINGERPRINT=google/marlin/marlin:10/QP1A.191005.007.A3/5972272:user/release-keys
-BUILD_SECURITY_PATCH_DATE=2019-10-06
+BUILD_FINGERPRINT=google/marlin/marlin:7.1.2/NJH47F/4146041:user/release-keys
 BUILD_TAGS=release-keys
 BUILD_TYPE=user
 DEBUGGABLE=0
