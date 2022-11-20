@@ -1,0 +1,4 @@
+BUILD_FINGERPRINT=google/angler/angler:6.0/MDB08L/2343525:user/release-keys
+BUILD_TAGS=release-keys
+BUILD_TYPE=user
+DEBUGGABLE=0
