@@ -1,0 +1,4 @@
+BUILD_FINGERPRINT=motorola/osprey_retus/osprey_umts:6.0/MPI24.65-25.1/1:user/release-keys
+BUILD_TAGS=release-keys
+BUILD_TYPE=user
+DEBUGGABLE=0
