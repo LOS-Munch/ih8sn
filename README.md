@@ -21,7 +21,12 @@ ih8sn allows you to modify system properties at runtime. It can be installed wit
 
 ### 1: Download ih8sn
 
-Check the "Releases" section on the right.
+Check the "Releases" section on the right. Make sure to download correct zip for your device `<arch>`.
+
+- aarch64 = arm64
+- armv7a = arm
+- i686 = x86
+- x86_64 = x86_64
 
 ### 2: [Optional] Configure ih8sn.conf inside the zip for your device
 
@@ -46,35 +51,45 @@ PRODUCT_NAME=OnePlus7Pro
 ### 3: Push the files to your device
 
 #### 1. ADB root
-```
-- Extract ih8sn zip in your PC.
+
+- Extract ih8sn-`<arch>`.zip in your PC.
 - Enable usb debugging and rooted debugging in developer options in your phone. 
-```
+
 Run the script according to your system.
 
-Windows :
+Windows (Install):
 ```
 .\push.ps1
 ```
-Linux :
+Windows (Uninstall):
+```
+.\uninstall.ps1
+```
+Linux (Install) :
 ```
 ./push.sh
 ```
+Linux (Uninstall) :
+```
+./uninstall.sh
+```
 
 #### 2. Recovery method
+
+- Reboot to recovery and select Apply update -> Apply from ADB
+- Run this in terminal to install.
 ```
-Reboot to recovery and select Apply update -> Apply from ADB
+adb sideload ih8sn-<arch>.zip
 ```
-Run this in terminal.
+
+To uninstall.
 ```
-adb sideload ih8sn*.zip
+adb sideload ih8sn-uninstaller.zip
 ```
 
 ### 4: Reboot your device 
-<br>
 
 ## Notes: 
 ```
-- Run script or flash zip again to uninstall.
 - Spoofing staying in ota updates if rom supports.
 ```
