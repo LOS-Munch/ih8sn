@@ -11,7 +11,7 @@ jobs:
     - name: Build (AArch64)
       run: |
         CXX=aarch64-linux-android33-clang++ ./build.sh
-        zip -r ih8sn-aarch64.zip META-INF system push.ps1 push.sh
+        ./zip.sh aarch64
     - uses: actions/upload-artifact@v1
       with:
         name: ih8sn (AArch64)
@@ -19,7 +19,7 @@ jobs:
     - name: Build (ARMv7-A)
       run: |
         CXX=armv7a-linux-androideabi33-clang++ ./build.sh
-        zip -r ih8sn-armv7a.zip META-INF system push.ps1 push.sh
+        ./zip.sh armv7a
     - uses: actions/upload-artifact@v1
       with:
         name: ih8sn (ARMv7-A)
@@ -27,7 +27,7 @@ jobs:
     - name: Build (i686)
       run: |
         CXX=i686-linux-android33-clang++ ./build.sh
-        zip -r ih8sn-i686.zip META-INF system push.ps1 push.sh
+        ./zip.sh i686
     - uses: actions/upload-artifact@v1
       with:
         name: ih8sn (i686)
@@ -35,11 +35,18 @@ jobs:
     - name: Build (x86_64)
       run: |
         CXX=x86_64-linux-android33-clang++ ./build.sh
-        zip -r ih8sn-x86_64.zip META-INF system push.ps1 push.sh
+        ./zip.sh x86_64
     - uses: actions/upload-artifact@v1
       with:
         name: ih8sn (x86_64)
         path: ih8sn-x86_64.zip
+    - name: Build (Uninstaller)
+      run: |
+        ./zip.sh uninstall
+    - uses: actions/upload-artifact@v1
+      with:
+        name: ih8sn (Uninstaller)
+        path: ih8sn-uninstaller.zip
     - uses: marvinpinto/action-automatic-releases@latest
       if: github.ref == 'refs/heads/master'
       with:
@@ -52,3 +59,4 @@ jobs:
           ih8sn-armv7a.zip
           ih8sn-i686.zip
           ih8sn-x86_64.zip
+          ih8sn-uninstaller.zip

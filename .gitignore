@@ -1,3 +1,4 @@
 android-ndk*
-ih8sn-*
+*.zip
 system/bin/ih8sn
+tmp/

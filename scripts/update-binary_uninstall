@@ -1,7 +1,6 @@
 #!/sbin/sh
 
 OUTFD="/proc/self/fd/$2"
-ZIP=$3
 
 ui_print() {
   echo "ui_print $1" > "$OUTFD";
@@ -58,16 +57,8 @@ find_block() {
   fi
 }
 
-compute_ih8sn_space() {
-  # Set minimum space required for ih8sn 10mb + STORAGE_BUFFER
-  NEEDED_STORAGE_SYSTEM=$(expr $STORAGE_BUFFER + $STORAGE_BUFFER)
-
-  RECLAIMABLE_STORAGE_SYSTEM=$(find . -type f | sed "s|^./|${SYSTEM_MNT}/system/|" | xargs ls -d 2>/dev/null | xargs du -cs PLACEHOLDER 2>/dev/null | tail -n1 |  cut -f1)
-  NEEDED_STORAGE_SYSTEM=$(expr $NEEDED_STORAGE_SYSTEM - $RECLAIMABLE_STORAGE_SYSTEM)
-}
-
 ui_print "**********************"
-ui_print "ih8sn installer"
+ui_print "ih8sn uninstaller"
 ui_print "**********************"
 
 ui_print "Mounting system partition"
@@ -108,48 +99,13 @@ else
 error_mounting "$SYSTEM_MNT"
 fi
 
-if [[ `ls ${SYSTEM_MNT}/system/bin/ih8sn 2> /dev/null` ]]; then
+if [ $(find ${SYSTEM_MNT}/system -name "*ih8sn*" | wc -l) -gt 0 ]; then
   ui_print "Removing existing ih8sn files"
   find ${SYSTEM_MNT}/system -name *ih8sn* -delete
-  unmount_partition
-  ui_print "Done!"
-  exit 0
-fi
-
-# Compute storage requirements
-SYSTEM_STORAGE=`df $SYSTEM_MNT | tail -1 | tr -s ' ' | cut -d ' ' -f4`
-STORAGE_BUFFER=10240
-
-compute_ih8sn_space
-if [ "$SYSTEM_STORAGE" -lt "$NEEDED_STORAGE_SYSTEM" ]; then
-  compute_ih8sn_space
-  if [ "$SYSTEM_STORAGE" -lt "$NEEDED_STORAGE_SYSTEM" ]; then
-    error_no_space
-  fi
-fi
-
-# Set ih8sn config
-MODEL=$(getprop ro.product.model)
-SERIALNO=$(getprop ro.boot.serialno)
-PRODUCT=$(getprop ro.build.product)
-DEFAULT_CONFIG=system/etc/ih8sn.conf
-if [[ `unzip -l $ZIP | grep ih8sn.conf.$SERIALNO$` ]] && [[ ! -z "$SERIALNO" ]]; then
-  CONFIG=$DEFAULT_CONFIG.$SERIALNO
-elif [[ `unzip -l $ZIP | grep ih8sn.conf.$MODEL$` ]] && [[ ! -z "$MODEL" ]]; then
-  CONFIG=$DEFAULT_CONFIG.$MODEL
-elif [[ `unzip -l $ZIP | grep ih8sn.conf.$PRODUCT$` ]] && [[ ! -z "$PRODUCT" ]]; then
-  CONFIG=$DEFAULT_CONFIG.$PRODUCT
 else
-  CONFIG=$DEFAULT_CONFIG
+  ui_print "No ih8sn files found"
 fi
-
-ui_print "Copying files"
-unzip -qq "$ZIP" system/etc/init/ih8sn.rc system/addon.d/60-ih8sn.sh system/bin/ih8sn -d "${SYSTEM_MNT}/"
-
-ui_print "Using ih8sn config: $CONFIG"
-unzip -qqp "$ZIP" $CONFIG > "${SYSTEM_MNT}/$DEFAULT_CONFIG"
 
 unmount_partition
-
 ui_print "Done!"
 exit 0
