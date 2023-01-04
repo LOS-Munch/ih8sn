@@ -55,21 +55,13 @@ PRODUCT_NAME=OnePlus7Pro
 - Extract ih8sn-`<arch>`.zip in your PC.
 - Enable usb debugging and rooted debugging in developer options in your phone. 
 
-Run the script according to your system.
+Run script.
 
-Windows (Install):
-```
-.\push.ps1
-```
-Windows (Uninstall):
-```
-.\uninstall.ps1
-```
-Linux (Install) :
+Install :
 ```
 ./push.sh
 ```
-Linux (Uninstall) :
+Uninstall :
 ```
 ./uninstall.sh
 ```
