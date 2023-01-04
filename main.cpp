@@ -86,6 +86,7 @@ int main(int argc, char *argv[]) {
     const auto build_version_release_or_codename = config.find("BUILD_VERSION_RELEASE_OR_CODENAME");
     const auto debuggable = config.find("DEBUGGABLE");
     const auto manufacturer_name = config.find("MANUFACTURER_NAME");
+    const auto product_first_api_level = config.find("PRODUCT_FIRST_API_LEVEL");
     const auto product_name = config.find("PRODUCT_NAME");
 
     if (is_init_stage && build_fingerprint != config.end()) {
@@ -118,6 +119,11 @@ int main(int argc, char *argv[]) {
     if (is_boot_completed_stage && build_security_patch_date != config.end()) {
         property_override("ro.build.version.security_patch",
                 build_security_patch_date->second.c_str());
+    }
+
+    if (is_boot_completed_stage && product_first_api_level != config.end()) {
+        property_override("ro.product.first_api_level",
+                product_first_api_level->second.c_str());
     }
 
     if (is_init_stage && debuggable != config.end()) {
