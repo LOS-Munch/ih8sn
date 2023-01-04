@@ -8,7 +8,14 @@ script_dir="META-INF/com/google/android/"
 zip_name="ih8sn-$1.zip"
 bin_out="$folder/system/bin"
 
-if [ -z "$1" ] || [[ ! "aarch64 armv7a i686 x86_64 uninstall" =~ (^|[[:space:]])"$1"($|[[:space:]]) ]]; then
+if [ -z "$1" ]; then
+    $0 armv7a
+    $0 aarch64
+    $0 i686
+    $0 x86_64
+    $0 uninstall
+    exit 0
+elif [[ ! "aarch64 armv7a i686 x86_64 uninstall" =~ (^|[[:space:]])"$1"($|[[:space:]]) ]]; then
     echo "Unknown type $1"
     exit 0
 fi
@@ -28,6 +35,7 @@ fi
 
 export PATH=${PATH}:$folder/android-ndk-$ndk_version/toolchains/llvm/prebuilt/linux-x86_64/bin
 
+echo "Building ih8sn archive for $1"
 if [ $1 '==' "armv7a" ]; then
     CXX=${CXX:-armv7a-linux-androideabi33-clang++}
 elif [ $1 '==' "aarch64" ]; then
@@ -39,7 +47,6 @@ elif [ $1 '==' "x86_64" ]; then
 fi
 
 if [ ! -z "$CXX" ]; then
-    echo "Building ih8sn binary"
     ${CXX} \
         -Iaosp/bionic/libc \
         -Iaosp/bionic/libc/async_safe/include \
@@ -62,7 +69,6 @@ if [ ! -z "$CXX" ]; then
         -o $bin_out/ih8sn
 fi
 
-echo "Copying ih8sn files"
 cp $folder/scripts/updater-script $folder/tmp/$script_dir/updater-script
 
 if [ $1 == "uninstall" ]; then
@@ -75,7 +81,6 @@ else
 fi
 
 cd $folder/tmp
-echo "Creating ih8sn archive: $zip_name"
 zip -q -r $folder/$zip_name *
 
 if [ -d $folder/tmp ]; then
