@@ -19,6 +19,12 @@ error() {
   exit 1
 }
 
+done() {
+  unmount_partition
+  ui_print "Done!"
+  exit 0
+}
+
 error_no_space() {
   error "Not enough space for ih8sn! Aborting"
 }
@@ -67,7 +73,7 @@ compute_ih8sn_space() {
 }
 
 ui_print "**********************"
-ui_print "ih8sn installer"
+ui_print "        ih8sn         "
 ui_print "**********************"
 
 ui_print "Mounting system partition"
@@ -120,28 +126,3 @@ if [ "$SYSTEM_STORAGE" -lt "$NEEDED_STORAGE_SYSTEM" ]; then
   fi
 fi
 
-# Set ih8sn config
-MODEL=$(getprop ro.product.model)
-SERIALNO=$(getprop ro.boot.serialno)
-PRODUCT=$(getprop ro.build.product)
-DEFAULT_CONFIG=system/etc/ih8sn.conf
-if [[ `unzip -l $ZIP | grep ih8sn.conf.$SERIALNO$` ]] && [[ ! -z "$SERIALNO" ]]; then
-  CONFIG=$DEFAULT_CONFIG.$SERIALNO
-elif [[ `unzip -l $ZIP | grep ih8sn.conf.$MODEL$` ]] && [[ ! -z "$MODEL" ]]; then
-  CONFIG=$DEFAULT_CONFIG.$MODEL
-elif [[ `unzip -l $ZIP | grep ih8sn.conf.$PRODUCT$` ]] && [[ ! -z "$PRODUCT" ]]; then
-  CONFIG=$DEFAULT_CONFIG.$PRODUCT
-else
-  CONFIG=$DEFAULT_CONFIG
-fi
-
-ui_print "Copying files"
-unzip -qq "$ZIP" system/etc/init/ih8sn.rc system/addon.d/60-ih8sn.sh system/bin/ih8sn -d "${SYSTEM_MNT}/"
-
-ui_print "Using ih8sn config: $CONFIG"
-unzip -qqp "$ZIP" $CONFIG > "${SYSTEM_MNT}/$DEFAULT_CONFIG"
-
-unmount_partition
-
-ui_print "Done!"
-exit 0

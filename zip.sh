@@ -15,12 +15,12 @@ mkdir -p $folder/tmp/$script_dir
 cp $folder/scripts/updater-script $folder/tmp/$script_dir/updater-script
 
 if [ $1 == "uninstall" ]; then
-    cp $folder/scripts/update-binary_uninstall $folder/tmp/$script_dir/update-binary
+    cat $folder/scripts/update-binary $folder/scripts/update-binary_uninstall > $folder/tmp/$script_dir/update-binary
     zip_name="ih8sn-uninstaller.zip"
     cp -r uninstall.* $folder/tmp/
 else
     cp -r $files $folder/tmp/
-    cp $folder/scripts/update-binary $folder/tmp/$script_dir/update-binary
+    cat $folder/scripts/update-binary $folder/scripts/update-binary_install > $folder/tmp/$script_dir/update-binary
 fi
 
 if [[ "aarch64 armv7a i686 x86_64 uninstall" =~ (^|[[:space:]])"$1"($|[[:space:]]) ]]; then
