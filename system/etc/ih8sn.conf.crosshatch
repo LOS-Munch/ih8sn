@@ -1,0 +1,5 @@
+BUILD_FINGERPRINT=google/crosshatch/crosshatch:11/RQ2A.210305.006/7119741:user/release-keys
+BUILD_SECURITY_PATCH_DATE=2021-03-05
+BUILD_TAGS=release-keys
+BUILD_TYPE=user
+DEBUGGABLE=0
