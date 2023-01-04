@@ -1,0 +1,5 @@
+BUILD_FINGERPRINT=motorola/hanoip_retail/hanoip:11/RRI31.Q1-42-24-4/980312:user/release-keys
+BUILD_SECURITY_PATCH_DATE=2021-03-01
+BUILD_TAGS=release-keys
+BUILD_TYPE=user
+DEBUGGABLE=0
