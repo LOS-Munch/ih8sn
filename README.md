@@ -2,6 +2,8 @@
 
 ih8sn allows you to modify system properties at runtime. It can be installed with ADB root or recovery. Proceed at your own risk.
 
+### If you want to add your device, do a PR with your device config.
+
 ## Disclaimer:
 
 ```
@@ -10,9 +12,19 @@ ih8sn allows you to modify system properties at runtime. It can be installed wit
 - The developers cannot be held liable in any way for the use of this tool.
 ```
 
-## If you want to add your device, do a PR with your device config.
+## Inline building
 
-## Requirements
+### 1: Clone ih8sn repo
+```
+git clone https://github.com/sdm870/ih8sn ih8sn
+```
+
+### 2: Include makefile
+```
+$(call inherit-product-if-exists, ih8sn/product.mk)
+```
+
+## Requirements for recovery/adb root
 
 - Android platform tools
 - Android device
