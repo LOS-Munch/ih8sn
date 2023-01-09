@@ -1,8 +1,8 @@
 # ih8sn
 
-ih8sn allows you to modify system properties at runtime. It can be installed with ADB root or recovery. Proceed at your own risk.
-
-### If you want to add your device, do a PR with your device config.
+- ih8sn allows you to modify system properties at runtime.
+-  It can be installed with ADB root or recovery.
+- If you want to add your device, do a PR with your device config.
 
 ## Disclaimer:
 
@@ -12,7 +12,7 @@ ih8sn allows you to modify system properties at runtime. It can be installed wit
 - The developers cannot be held liable in any way for the use of this tool.
 ```
 
-## Inline building
+# Inline building
 
 ### 1: Clone ih8sn repo
 ```
@@ -29,9 +29,9 @@ $(call inherit-product-if-exists, ih8sn/product.mk)
 - Android platform tools
 - Android device
 
-## Installation
+# Installation
 
-### 1: Download ih8sn
+## 1: Download ih8sn
 
 Check the "Releases" section on the right. Make sure to download correct zip for your device `<arch>`.
 
@@ -40,11 +40,11 @@ Check the "Releases" section on the right. Make sure to download correct zip for
 - i686 = x86
 - x86_64 = x86_64
 
-### 2: [Optional] Configure ih8sn.conf inside the zip for your device
+## 2: Check if your device is supported in system/etc/ih8sn.conf.<codename/model>
+- If your device isn't available in the list then you can either use default config by flashing exisiting ih8sn flashable zip or follow below steps to create ih8sn config for your device.
 
+### Configure ih8sn.conf for your device
 - Modify ih8sn.conf for your device and save it as ih8sn.conf.`<codename>` in etc.
-- Use # or remove it from config to disable spoofing that property. (You don't need to spoof all the properties)
-
 Example :
 
 ```
@@ -61,7 +61,11 @@ PRODUCT_NAME=OnePlus7Pro
 PRODUCT_FIRST_API_LEVEL=29
 ```
 
-### 3: Push the files to your device
+Notes:
+- Use # or remove it from config to disable spoofing that property.
+- You don't need to spoof all the properties.
+
+## 3: Push the files to your device
 
 #### 1. ADB root
 
@@ -100,9 +104,7 @@ To uninstall.
 adb sideload ih8sn-uninstaller.zip
 ```
 
-### 4: Reboot your device 
+## 4: Reboot your device 
 
 ## Notes: 
-```
-- Spoofing staying in ota updates if rom supports.
-```
+- Spoofing staying in ota updates if the rom supports it.
