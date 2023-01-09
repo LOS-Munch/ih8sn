@@ -19,7 +19,7 @@ error() {
   exit 1
 }
 
-done() {
+install_done() {
   unmount_partition
   ui_print "Done!"
   exit 0

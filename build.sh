@@ -70,14 +70,15 @@ if [ ! -z "$CXX" ]; then
 fi
 
 cp $folder/scripts/updater-script $folder/tmp/$script_dir/updater-script
+cp $folder/scripts/update-binary $folder/tmp/$script_dir/update-binary
 
 if [ $1 == "uninstall" ]; then
-    cat $folder/scripts/update-binary $folder/scripts/update-binary_uninstall >$folder/tmp/$script_dir/update-binary
+    cat $folder/scripts/update-binary_uninstall >>$folder/tmp/$script_dir/update-binary
     zip_name="ih8sn-uninstaller.zip"
     cp -r uninstall.sh $folder/tmp/
 else
     cp -r $files $folder/tmp/
-    cat $folder/scripts/update-binary $folder/scripts/update-binary_install >$folder/tmp/$script_dir/update-binary
+    cat $folder/scripts/update-binary_install >>$folder/tmp/$script_dir/update-binary
 fi
 
 cd $folder/tmp

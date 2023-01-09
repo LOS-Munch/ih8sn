@@ -6,4 +6,4 @@ else
   ui_print "No ih8sn files found"
 fi
 
-done
+install_done
