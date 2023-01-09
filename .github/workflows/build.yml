@@ -8,41 +8,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Build (AArch64)
+    - name: Build
       run: |
-        ./build.sh aarch64
-    - uses: actions/upload-artifact@v1
+        ./build.sh
+    - uses: actions/upload-artifact@v3
       with:
-        name: ih8sn (AArch64)
-        path: ih8sn-aarch64.zip
-    - name: Build (ARMv7-A)
-      run: |
-        ./build.sh armv7a
-    - uses: actions/upload-artifact@v1
-      with:
-        name: ih8sn (ARMv7-A)
-        path: ih8sn-armv7a.zip
-    - name: Build (i686)
-      run: |
-        ./build.sh i686
-    - uses: actions/upload-artifact@v1
-      with:
-        name: ih8sn (i686)
-        path: ih8sn-i686.zip
-    - name: Build (x86_64)
-      run: |
-        ./build.sh x86_64
-    - uses: actions/upload-artifact@v1
-      with:
-        name: ih8sn (x86_64)
-        path: ih8sn-x86_64.zip
-    - name: Build (Uninstaller)
-      run: |
-        ./build.sh uninstall
-    - uses: actions/upload-artifact@v1
-      with:
-        name: ih8sn (Uninstaller)
-        path: ih8sn-uninstaller.zip
+        name: ih8sn
+        path: ih8sn-*.zip
     - uses: marvinpinto/action-automatic-releases@latest
       if: github.ref == 'refs/heads/master'
       with:
