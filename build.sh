@@ -9,11 +9,11 @@ zip_name="ih8sn-$1.zip"
 bin_out="$folder/system/bin"
 
 if [ -z "$1" ]; then
-    $0 armv7a
-    $0 aarch64
-    $0 i686
-    $0 x86_64
-    $0 uninstall
+    $folder/$0 armv7a
+    $folder/$0 aarch64
+    $folder/$0 i686
+    $folder/$0 x86_64
+    $folder/$0 uninstall
     exit 0
 elif [[ ! "aarch64 armv7a i686 x86_64 uninstall" =~ (^|[[:space:]])"$1"($|[[:space:]]) ]]; then
     echo "Unknown type $1"
