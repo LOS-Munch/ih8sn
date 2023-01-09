@@ -68,13 +68,21 @@ PRODUCT_FIRST_API_LEVEL=29
 - Extract ih8sn-`<arch>`.zip in your PC.
 - Enable usb debugging and rooted debugging in developer options in your phone. 
 
-Run script.
+Run the script according to your system.
 
-Install :
+Windows (Install):
+```
+.\push.ps1
+```
+Windows (Uninstall):
+```
+.\uninstall.ps1
+```
+Linux (Install) :
 ```
 ./push.sh
 ```
-Uninstall :
+Linux (Uninstall) :
 ```
 ./uninstall.sh
 ```
